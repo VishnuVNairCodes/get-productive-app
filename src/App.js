@@ -1,12 +1,52 @@
+import React, { useEffect, useState } from "react";
+import firebase from "firebase";
+import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
+import Todo from "./Todo";
+import db from "./firebase";
+
 function App() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState("");
+  useEffect(() => {
+    db.collection("todos")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+      });
+  }, []);
+  const addTodo = (event) => {
+    event.preventDefault();
+    db.collection("todos").add({
+      todo: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setInput("");
+  };
   return (
     <div className="App">
       <h1>Get Productive</h1>
-      <input />
-      <button>Add Todo</button>
+      <form>
+        <FormControl>
+          <InputLabel>📑 Write a Todo</InputLabel>
+          <Input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+          />
+        </FormControl>
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={!input}
+          onClick={addTodo}
+        >
+          Add Todo
+        </Button>
+      </form>
+
       <ul>
-        <li>Take the dogs out</li>
-        <li>Clean the rubbish</li>
+        {todos.map((todo) => (
+          <Todo text={todo} />
+        ))}
       </ul>
     </div>
   );
