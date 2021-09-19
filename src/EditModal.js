@@ -6,8 +6,8 @@ import {
   FormControl,
   Input,
   Modal,
-  Typography,
 } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 import React, { useState } from "react";
 import db from "./firebase";
 
@@ -40,7 +40,7 @@ export default function EditModal(props) {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>Edit</Button>
+      <EditIcon onClick={handleOpen} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -54,12 +54,6 @@ export default function EditModal(props) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
             <form>
               <FormControl>
                 <Input
