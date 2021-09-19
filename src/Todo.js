@@ -1,18 +1,19 @@
-import { Button, List, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
+import { List, ListItem, ListItemText } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import db from "./firebase";
+import EditModal from "./EditModal";
 
 function Todo(props) {
   return (
     <List>
       <ListItem>
-        <ListItemText primary={props.todo.todo} secondary={props.todo.todo} />
+        <ListItemText primary={props.todo.todo} />
       </ListItem>
-      <Button
+      <DeleteIcon
         onClick={(event) => db.collection("todos").doc(props.todo.id).delete()}
-      >
-        ❌Delete Me
-      </Button>
+      />
+      <EditModal todo={props.todo} />
     </List>
   );
 }
