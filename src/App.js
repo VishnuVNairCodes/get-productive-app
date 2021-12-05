@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 import firebase from "firebase";
 import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
 import Todo from "./Todo";
