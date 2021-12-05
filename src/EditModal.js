@@ -27,7 +27,10 @@ export default function EditModal(props) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = (event) => {
+    event.preventDefault();
+    setOpen(false);
+  };
   const updateTodo = (event) => {
     event.preventDefault();
     db.collection("todos").doc(props.todo.id).set(
